@@ -1,6 +1,8 @@
 use crate::*;
+#[cfg(feature = "std")]
 use bytes::BytesMut;
 use subscribe::LimitedString;
+#[cfg(not(feature = "std"))]
 use core::str::FromStr;
 
 macro_rules! header {
@@ -12,10 +14,6 @@ macro_rules! header {
             retain: $r,
         }
     };
-}
-
-fn bm(d: &[u8]) -> BytesMut {
-    BytesMut::from(d)
 }
 
 /// Test all possible header first byte, using remaining_len=0.
@@ -115,15 +113,6 @@ fn non_utf8_string() {
 /// are rarer.
 #[test]
 fn inner_length_too_long() {
-    let mut data = bm(&[
-        0b00010000, 20, // Connect packet, remaining_len=20
-        0x00, 0x04, 'M' as u8, 'Q' as u8, 'T' as u8, 'T' as u8, 0x04, 0b01000000, // +password
-        0x00, 0x0a, // keepalive 10 sec
-        0x00, 0x04, 't' as u8, 'e' as u8, 's' as u8, 't' as u8, // client_id
-        0x00, 0x03, 'm' as u8, 'q' as u8, // password with invalid length
-    ]);
-    assert_eq!(Err(Error::InvalidLength), decode_slice(&mut data));
-
     let mut slice: &[u8] = &[
         0b00010000, 20, // Connect packet, remaining_len=20
         0x00, 0x04, 'M' as u8, 'Q' as u8, 'T' as u8, 'T' as u8, 0x04, 0b01000000, // +password
@@ -134,6 +123,24 @@ fn inner_length_too_long() {
 
     assert_eq!(Err(Error::InvalidLength), decode_slice(&mut slice));
     // assert_eq!(slice, []);
+}
+
+#[cfg(feature = "std")]
+fn bm(d: &[u8]) -> BytesMut {
+    BytesMut::from(d)
+}
+
+#[cfg(feature = "std")]
+#[test]
+fn inner_length_too_long_bytes() {
+    let mut data = bm(&[
+        0b00010000, 20, // Connect packet, remaining_len=20
+        0x00, 0x04, 'M' as u8, 'Q' as u8, 'T' as u8, 'T' as u8, 0x04, 0b01000000, // +password
+        0x00, 0x0a, // keepalive 10 sec
+        0x00, 0x04, 't' as u8, 'e' as u8, 's' as u8, 't' as u8, // client_id
+        0x00, 0x03, 'm' as u8, 'q' as u8, // password with invalid length
+    ]);
+    assert_eq!(Err(Error::InvalidLength), decode_slice(&mut data));
 }
 
 #[test]

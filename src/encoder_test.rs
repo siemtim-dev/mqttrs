@@ -1,10 +1,8 @@
 use crate::*;
 use core::convert::TryFrom;
 use subscribe::{LimitedString, LimitedVec};
+#[cfg(not(feature = "std"))]
 use core::str::FromStr;
-
-#[cfg(feature = "std")]
-use bytes::BytesMut;
 
 // macro_rules! assert_decode {
 //     ($res:pat, $pkt:expr) => {
