@@ -23,18 +23,18 @@ jobs:
     - name: Build no_std
       run: cargo build --verbose --no-default-features
     - name: Run tests no_std
-      run: cargo test --verbose --no-default-features
+      run: cargo test --verbose --no-default-features --tests --lib
     - name: Build no_std
       run: cargo build --verbose --no-default-features --features=derive
     - name: Run tests no_std
-      run: cargo test --verbose --no-default-features --features=derive
+      run: cargo test --verbose --no-default-features --features=derive --tests --lib
     - name: Build defmt
       run: cargo build --verbose --no-default-features --features=defmt
     - name: Run tests defmt
-      run: cargo test --verbose --no-default-features --features=defmt
+      run: cargo test --verbose --no-default-features --features=defmt --tests --lib
     - name: Build defmt derive
       run: cargo build --verbose --no-default-features --features=defmt --features=derive
     - name: Run tests defmt derive
-      run: cargo test --verbose --no-default-features --features=defmt --features=derive
+      run: cargo test --verbose --no-default-features --features=defmt --features=derive --tests --lib
 
 
