@@ -1,6 +1,6 @@
+use crate::{decoder::*, encoder::*, *};
 #[cfg(feature = "defmt")]
 use defmt::Format;
-use crate::{decoder::*, encoder::*, *};
 #[cfg(feature = "derive")]
 use serde::{Deserialize, Serialize};
 
@@ -21,7 +21,7 @@ use core::str::FromStr;
 /// [Subscribe] packets contain a `Vec` of those.
 ///
 /// [Subscribe]: struct.Subscribe.html
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(feature = "derive", derive(Serialize, Deserialize))]
 pub struct SubscribeTopic {
@@ -43,7 +43,7 @@ impl SubscribeTopic {
 /// [Suback] packets contain a `Vec` of those.
 ///
 /// [Suback]: struct.Subscribe.html
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SubscribeReturnCodes {
     Success(QoS),
@@ -73,7 +73,7 @@ impl SubscribeReturnCodes {
 /// Subscribe packet ([MQTT 3.8]).
 ///
 /// [MQTT 3.8]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718063
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Subscribe {
     pub pid: Pid,
@@ -83,7 +83,7 @@ pub struct Subscribe {
 /// Subsack packet ([MQTT 3.9]).
 ///
 /// [MQTT 3.9]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718068
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Suback {
     pub pid: Pid,
@@ -93,7 +93,7 @@ pub struct Suback {
 /// Unsubscribe packet ([MQTT 3.10]).
 ///
 /// [MQTT 3.10]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718072
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Unsubscribe {
     pub pid: Pid,

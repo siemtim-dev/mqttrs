@@ -1,9 +1,9 @@
 use crate::*;
 #[cfg(feature = "std")]
 use bytes::BytesMut;
-use subscribe::LimitedString;
 #[cfg(not(feature = "std"))]
 use core::str::FromStr;
+use subscribe::LimitedString;
 
 macro_rules! header {
     ($t:ident, $d:expr, $q:ident, $r:expr) => {
@@ -193,12 +193,8 @@ fn test_decode_packet_n() {
         'e' as u8, // will msg = 'offline'
         0x00, 0x04, 'r' as u8, 'u' as u8, 's' as u8, 't' as u8, // username = 'rust'
         0x00, 0x02, 'm' as u8, 'q' as u8, // password = 'mq'
-
-        // pingreq packet
-        0b11000000, 0b00000000,
-
-        // pingresp packet
-        0b11010000, 0b00000000,
+        0b11000000, 0b00000000, // pingreq packet
+        0b11010000, 0b00000000, // pingresp packet
     ];
 
     let pkt1 = Connect {
@@ -502,7 +498,10 @@ fn test_unsubscribe() {
     match decode_slice(&mut data) {
         Ok(Some(Packet::Unsubscribe(a))) => {
             assert_eq!(a.pid.get(), 10);
-            assert_eq!(a.topics.get(0), Some(&LimitedString::from_str("a").unwrap()));
+            assert_eq!(
+                a.topics.get(0),
+                Some(&LimitedString::from_str("a").unwrap())
+            );
         }
         other => panic!("Failed decode: {:?}", other),
     }

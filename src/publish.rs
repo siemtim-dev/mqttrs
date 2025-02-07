@@ -1,11 +1,11 @@
+use crate::{decoder::*, encoder::*, *};
 #[cfg(feature = "defmt")]
 use defmt::Format;
-use crate::{decoder::*, encoder::*, *};
 
 /// Publish packet ([MQTT 3.3]).
 ///
 /// [MQTT 3.3]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718037
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Publish<'a> {
     pub dup: bool,
