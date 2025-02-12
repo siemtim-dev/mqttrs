@@ -1,12 +1,11 @@
+use crate::{decoder::*, encoder::*, *};
+use core::str::FromStr;
 #[cfg(feature = "defmt")]
 use defmt::Format;
-use crate::{decoder::*, encoder::*, *};
 #[cfg(not(feature = "std"))]
 use heapless::String;
 #[cfg(feature = "std")]
 use std::string::String;
-use core::str::FromStr;
-
 
 /// Protocol version.
 ///
@@ -14,7 +13,7 @@ use core::str::FromStr;
 ///
 /// [`Connect`]: struct.Connect.html
 ///
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Protocol {
     /// [MQTT 3.1.1] is the most commonly implemented version. [MQTT 5] isn't yet supported my by
@@ -34,7 +33,7 @@ impl Protocol {
             ("MQIsdp", 3) => Ok(Protocol::MQIsdp),
             ("MQTT", 4) => Ok(Protocol::MQTT311),
             _ => Err(Error::InvalidProtocol(String::from_str(name).unwrap(), 0)),
-    }
+        }
     }
     pub(crate) fn from_buffer<'a>(buf: &'a [u8], offset: &mut usize) -> Result<Self, Error> {
         let protocol_name = read_str(buf, offset)?;
@@ -71,7 +70,7 @@ impl Protocol {
 ///
 /// [Connect]: struct.Connect.html
 /// [MQTT 3.1.3.3]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718031
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct LastWill<'a> {
     pub topic: &'a str,
@@ -86,7 +85,7 @@ pub struct LastWill<'a> {
 ///
 /// [Connack]: struct.Connack.html
 /// [MQTT 3.2.2.3]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718035
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum ConnectReturnCode {
     Accepted,
@@ -123,7 +122,7 @@ impl ConnectReturnCode {
 /// Connect packet ([MQTT 3.1]).
 ///
 /// [MQTT 3.1]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718028
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Connect<'a> {
     pub protocol: Protocol,
@@ -138,7 +137,7 @@ pub struct Connect<'a> {
 /// Connack packet ([MQTT 3.2]).
 ///
 /// [MQTT 3.2]: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718033
-#[cfg_attr(feature = "defmt",derive(Format))]
+#[cfg_attr(feature = "defmt", derive(Format))]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Connack {
     pub session_present: bool,

@@ -1,10 +1,8 @@
 use crate::*;
 use core::convert::TryFrom;
-use subscribe::{LimitedString, LimitedVec};
+#[cfg(not(feature = "std"))]
 use core::str::FromStr;
-
-#[cfg(feature = "std")]
-use bytes::BytesMut;
+use subscribe::{LimitedString, LimitedVec};
 
 // macro_rules! assert_decode {
 //     ($res:pat, $pkt:expr) => {
@@ -173,7 +171,10 @@ fn test_unsubscribe() {
     #[cfg(feature = "std")]
     let topics: LimitedVec<LimitedString> = [LimitedString::from("a/b")].iter().cloned().collect();
     #[cfg(not(feature = "std"))]
-    let topics: LimitedVec<LimitedString> = [LimitedString::from_str("a/b").unwrap()].iter().cloned().collect();
+    let topics: LimitedVec<LimitedString> = [LimitedString::from_str("a/b").unwrap()]
+        .iter()
+        .cloned()
+        .collect();
 
     let packet = Unsubscribe::new(Pid::try_from(12321).unwrap(), topics).into();
     // assert_decode!(Packet::Unsubscribe(_), &packet);
