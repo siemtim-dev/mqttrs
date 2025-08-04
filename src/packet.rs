@@ -9,7 +9,7 @@ use crate::*;
 /// [`encode()`]. Most variants can be constructed directly without using methods.
 ///
 /// ```
-/// # use mqttrs::*;
+/// # use mqttrs2::*;
 /// # use core::convert::TryFrom;
 /// // Simplest form
 /// let pkt = Packet::Connack(Connack { session_present: false,

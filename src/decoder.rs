@@ -31,7 +31,7 @@ pub fn clone_packet(input: &[u8], output: &mut [u8]) -> Result<usize, Error> {
 /// allow using the same buffer to read bytes from network.
 ///
 /// ```
-/// # use mqttrs::*;
+/// # use mqttrs2::*;
 /// # use bytes::*;
 /// // Fill a buffer with encoded data (probably from a `TcpStream`).
 /// let mut buf = BytesMut::from(&[
@@ -67,7 +67,7 @@ pub fn decode_slice<'a>(buf: &'a [u8]) -> Result<Option<Packet<'a>>, Error> {
 /// allow using the same buffer to read bytes from network.
 ///
 /// ```
-/// # use mqttrs::*;
+/// # use mqttrs2::*;
 /// # use bytes::*;
 /// // Fill a buffer with encoded data (probably from a `TcpStream`).
 /// // this contains 2 packets worth of data

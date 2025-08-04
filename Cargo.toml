@@ -17,7 +17,7 @@ license = "Apache-2.0"
 [features]
 default = ["std"]
 
-# Implements serde::{Serialize,Deserialize} on mqttrs::Pid.
+# Implements serde::{Serialize,Deserialize} on mqttrs2::Pid.
 derive = ["serde", "heapless/serde"]
 std = ["bytes/std", "serde/std"]
 defmt = ["dep:defmt", "heapless/defmt-03"]

@@ -8,7 +8,7 @@
 //! It currently targets [MQTT 3.1], with [MQTT 5] support planned.
 //!
 //! ```
-//! use mqttrs::*;
+//! use mqttrs2::*;
 //! use bytes::BytesMut;
 //!
 //! // Allocate buffer.

@@ -3,7 +3,7 @@ use crate::{Error, Packet};
 /// Encode a [Packet] enum into a [BufMut] buffer.
 ///
 /// ```
-/// # use mqttrs::*;
+/// # use mqttrs2::*;
 /// # use bytes::*;
 /// // Instantiate a `Packet` to encode.
 /// let packet = Publish {

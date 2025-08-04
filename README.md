@@ -19,7 +19,7 @@ packet).
 Add `mqttrs = "0.4"` and `bytes = "1.0"` to your `Cargo.toml`.
 
 ```rust
-use mqttrs::*;
+use mqttrs2::*;
 use bytes::BytesMut;
 
 // Allocate write buffer.
@@ -55,7 +55,7 @@ Enabling this features adds `#[derive(Deserialize, Serialize)]` to some `mqttrs`
 simplifies storing those structs in a database or file, typically to implement session support (qos,
 subscriptions...).
 
-This doesn't add mqtt as a serde data format; you still need to use the `mqttrs::{decode,encode}`
+This doesn't add mqtt as a serde data format; you still need to use the `mqttrs2::{decode,encode}`
 functions.
 
 ## Optional `#[no_std]` support.

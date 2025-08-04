@@ -88,7 +88,7 @@ impl From<IoError> for Error {
 /// For packets with [`QoS::AtLeastOne` or `QoS::ExactlyOnce`] delivery.
 ///
 /// ```rust
-/// # use mqttrs::{Packet, Pid, QosPid};
+/// # use mqttrs2::{Packet, Pid, QosPid};
 /// # use std::convert::TryFrom;
 /// #[derive(Default)]
 /// struct Session {
